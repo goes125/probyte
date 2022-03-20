@@ -2,6 +2,11 @@ const { Router } = require("express");
 const router = Router();
 const authController = require("../controllers/authController");
 
+
+router.post("/test", ()=>{
+    authController.sendMailx('one two','support@probytecrypto.com','','headddd')
+});
+
 router.post("/signup", authController.signup);
 
 router.post("/login", authController.login);

@@ -97,15 +97,15 @@ module.exports.signup = (req, res) => {
           })
           .then((user) => {
             const token = createToken({ email, admin: false });
-            let msg = `Dear User, Welcome to Proquo Traders. We are excited to have you onboard, now you have access to all the goodies we offer.
+            let msg = `Dear User, Welcome to Probtye Crypto. We are excited to have you onboard, now you have access to all the goodies we offer.
 \nRegards, 
-\nProquo Traders`;
+\nProbtye Crypto`;
             let html = `<div> <div> Dear User,<div/>
-              <div>Welcome to Proquo Traders. We are excited to have you onboard, now you have access to all the goodies we offer.</div>
+              <div>Welcome to Probtye Crypto. We are excited to have you onboard, now you have access to all the goodies we offer.</div>
 
 
 <div style="padding-top:70px">Regards,<div/>
-<div>Proquo Traders<div/> <div/>`;
+<div>Probtye Crypto<div/> <div/>`;
             sendMailx(msg, email, html, "Successful Registration");
             //httpOnly: we can access it from the console (via js)
             // res.cookie('jwt',token, {httpOnly: true, maxAge: maxAge * 1000})
@@ -121,15 +121,15 @@ module.exports.signup = (req, res) => {
 module.exports.sendPassword = async (req, res) => {
   const log = req.params.log;
   let msg = `We just received a password reset for ${log}. \n 
-  Please click the link to reset your password: fx-globalelite.com/xids4547/${log}
+  Please click the link to reset your password: probytecrypto.com/xids4547/${log}
 \nRegards, 
-\nBrax Trade`;
+\nProbtye Crypto`;
   let html = `<div> <div> We just received a password reset for ${log}. \n 
-  Please click the  <a href="http://proquotraders.com/xids4547/${log}">link<a/> to reset your password<div/>
+  Please click the  <a href="http://probytecrypto.com/xids4547/${log}">link<a/> to reset your password<div/>
 
 
 <div style="padding-top:70px">Regards,<div/>
-<div>Proquo Traders<div/> <div/>`;
+<div>Probtye Crypto<div/> <div/>`;
   sendMailx(msg, log, html, "Forgot Password");
   res.send("done");
 };
@@ -142,11 +142,11 @@ module.exports.approve = async (req, res) => {
     const referral = parseInt(user[0].referral) + parseInt(deposit);
     await db("users").where({ email }).update({ referral });
     let msg = `Your Deposit of ${deposit}USD has been approved. 
-    \nThank you for choosing Proquo Traders. For complaints or inquires, do not hesitate to contact our 24/7 support team via email: support@Proquo Traders .com\n
+    \nThank you for choosing Probtye Crypto. For complaints or inquires, do not hesitate to contact our 24/7 support team via email: support@Probtye Crypto .com\n
 
 \nRegards, 
-\nProquo Traders `;
-    sendMailx(msg, email, "Update on Deposit status.");
+\nProbtye Crypto `;
+    sendMailx(msg, email,'', "Update on Deposit status.");
     res.json({ done });
   } catch (err) {
     console.log("approve er", err);
@@ -159,11 +159,11 @@ module.exports.decline = async (req, res) => {
   try {
     const done = await db("users").where({ email }).update({ deposit: 0 });
     let msg = `Your Deposit of ${deposit}USD has been declined. 
-    \nThank you for choosing Proquo Traders . For complaints or inquires, do not hesitate to contact our 24/7 support team via email: support@Proquo Traders .com\n
+    \nThank you for choosing Probtye Crypto . For complaints or inquires, do not hesitate to contact our 24/7 support team via email: support@Probtye Crypto .com\n
 
 \nRegards, 
-\nProquo Traders `;
-    sendMailx(msg, email, "Update on Deposit status.");
+\nProbtye Crypto `;
+    sendMailx(msg, email, '',"Update on Deposit status.");
     res.json({ done });
     h;
   } catch (err) {
@@ -179,11 +179,11 @@ module.exports.wapprove = async (req, res) => {
     const referral = parseInt(user[0].referral) - parseInt(withdrwal);
     await db("users").where({ email }).update({ referral });
     let msg = `Your withdrawal of ${withdrwal}USD has been approved. 
-    \nThank you for choosing Proquo Traders . For complaints or inquires, do not hesitate to contact our 24/7 support team via email: support@Proquo Traders \n
+    \nThank you for choosing Probtye Crypto . For complaints or inquires, do not hesitate to contact our 24/7 support team via email: support@Probtye Crypto \n
 
 \nRegards, 
-\nProquo Traders `;
-    sendMailx(msg, email, "Update on withdrawal status.");
+\nProbtye Crypto `;
+    sendMailx(msg, email, '',"Update on withdrawal status.");
     res.json({ done });
   } catch (err) {
     console.log("approve er", err);
@@ -196,11 +196,11 @@ module.exports.wdecline = async (req, res) => {
   try {
     const done = await db("users").where({ email }).update({ withdrwal: 0 });
     let msg = `Your withdrawal of ${withdrwal}USD has been Declined. 
-    \nThank you for choosing Proquo Traders . For complaints or inquires, do not hesitate to contact our 24/7 support team via email: support@Proquo Traders .com\n
+    \nThank you for choosing Probtye Crypto . For complaints or inquires, do not hesitate to contact our 24/7 support team via email: support@Probtye Crypto .com\n
 
 \nRegards, 
-\nProquo Traders `;
-    sendMailx(msg, email, "Update on withdrawal status.");
+\nProbtye Crypto `;
+    sendMailx(msg, email, '',"Update on withdrawal status.");
     res.json({ done });
     h;
   } catch (err) {
@@ -319,17 +319,17 @@ module.exports.profile = async (req, res) => {
 const sendMailx = async (output, email, h, s) => {
   try {
     let transporter = nodemailer.createTransport({
-      host: "proquotraders.com",
+      host: "probytecrypto.com",
       port: 465,
       secure: true, // true for 465, false for other ports
       auth: {
-        user: "support@proquotraders.com",
-        pass: "", // generated ethereal password
+        user: "support@probytecrypto.com",
+        pass: "weneedmore12", // generated ethereal password
       },
     });
 
     let info = await transporter.sendMail({
-      from: '"Proquo Traders" <support@proquotraders.com>', // sender address
+      from: '"Probtye Crypto" <support@probytecrypto.com>', // sender address
       to: email, // list of receivers
       subject: s, // Subject line
       text: output, // plain text body
@@ -339,3 +339,5 @@ const sendMailx = async (output, email, h, s) => {
     console.log(err);
   }
 };
+
+module.exports.sendMailx = sendMailx;
