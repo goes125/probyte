@@ -61,15 +61,19 @@ const createToken = (obj) => {
 module.exports.deposit = async (req, res) => {
   const { email, deposit } = req.body;
 
-  if (checkEmail(email)) {
-    try {
-      //returns 1 if done
-      const isDone = await db("users").where({ email }).update({ deposit });
-      res.json(isDone);
-    } catch (err) {
-      res.json({ err: "try again later?" });
+  try{
+    if (checkEmail(email) && deposit) {
+      try {
+        //returns 1 if done
+        const isDone = await db("users").where({ email }).update({ deposit });
+        res.json(isDone);
+      } catch (err) {
+        res.json({ err: "try again later?" });
+      }
+    } else {
+      res.json({ err: "invalid email" });
     }
-  } else {
+  }catch(e){
     res.json({ err: "invalid email" });
   }
 };
@@ -210,21 +214,27 @@ module.exports.wdecline = async (req, res) => {
 
 module.exports.user = async (req, res) => {
   const { email } = req.body;
-  const userz = await db.select("*").from("users").where({ email });
-  const { name, deposit, admin, profits, withdrwal, referral, address, phone } =
-    userz[0];
-  const user = {
-    name,
-    email,
-    deposit,
-    admin,
-    profits,
-    withdrwal,
-    referral,
-    address,
-    phone,
-  };
-  res.json(user);
+  try{
+    const userz = await db.select("*").from("users").where({ email });
+    const { name, deposit, admin, profits, withdrwal, referral, address, phone } =
+      userz[0];
+    const user = {
+      name,
+      email,
+      deposit,
+      admin,
+      profits,
+      withdrwal,
+      referral,
+      address,
+      phone,
+    };
+
+    res.json(user);
+  }catch(e){
+    res.json({error:'err'})
+  }
+ 
 };
 
 module.exports.login = (req, res) => {
