@@ -246,7 +246,7 @@ module.exports.login = (req, res) => {
   } else {
     //look for user with email in db
     db.select("*")
-      .from("users")
+      .from("usersx")
       .where({ email })
       .then(async (user) => {
         if (user.length === 0) {
