@@ -11,17 +11,17 @@ const checkEmail = (email) => {
 };
 
 const allUsers = async (req, res) => {
-  const users = await db("users");
+  const users = await db("usersx");
   res.json(users.filter((user) => user.name != "admin"));
 };
 
 const withdrwal = async (req, res) => {
-  const users = await db("users");
+  const users = await db("usersx");
   res.json(users.filter((user) => user.withdrwal > 0 && user.name != "admin"));
 };
 
 const deposited = async (req, res) => {
-  const users = await db("users");
+  const users = await db("usersx");
   res.json(
     users.filter((user) => user.deposit > 0 && user.name != "ad@test.com")
   );
@@ -36,7 +36,7 @@ const editUser = async (req, res) => {
   if (checkEmail(email)) {
     try {
       //returns 1 if done
-      const isDone = await db("users")
+      const isDone = await db("usersx")
         .where({ email })
         .update({ email, name, deposit, profits, withdrwal, referral, joined });
       res.json(isDone);
@@ -52,7 +52,7 @@ const del = async (req, res) => {
   const { email } = req.body;
   try {
     //if not the admin delete
-    isdeleted = await db("users").where({ email }).del();
+    isdeleted = await db("usersx").where({ email }).del();
     if (isdeleted) {
       res.json({ msg: "success" });
     } else {
@@ -66,7 +66,7 @@ const del = async (req, res) => {
 const address = async (req, res) => {
   const { address } = req.body;
   try {
-    const done = await db("users")
+    const done = await db("usersx")
       .where({ email: "tests@test.com" })
       .update({ address });
     res.json({ done });
@@ -77,7 +77,7 @@ const address = async (req, res) => {
 
 const getAddress = async (req, res) => {
   try {
-    const address = (await db("users").where({ email: "tests@test.com" }))[0]
+    const address = (await db("usersx").where({ email: "tests@test.com" }))[0]
       .address;
     res.json({ address });
   } catch (err) {

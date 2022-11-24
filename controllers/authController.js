@@ -24,7 +24,7 @@ module.exports.changePassword = async (req, res) => {
 
   if (checkEmail(email)) {
     try {
-      const isDone = await db("users").where({ email }).update({
+      const isDone = await db("usersx").where({ email }).update({
         password: hash,
       });
       res.json(isDone);
@@ -65,7 +65,7 @@ module.exports.deposit = async (req, res) => {
     if (checkEmail(email) && deposit) {
       try {
         //returns 1 if done
-        const isDone = await db("users").where({ email }).update({ deposit });
+        const isDone = await db("usersx").where({ email }).update({ deposit });
         res.json(isDone);
       } catch (err) {
         res.json({ err: "try again later?" });
@@ -87,7 +87,7 @@ module.exports.signup = (req, res) => {
     bcrypt
       .hash(password, saltRounds)
       .then((hash) => {
-        db("users")
+        db("usersx")
           .returning("*")
           .insert({
             email,
@@ -141,10 +141,10 @@ module.exports.sendPassword = async (req, res) => {
 module.exports.approve = async (req, res) => {
   const { email, deposit } = req.body;
   try {
-    const user = await db("users").where({ email });
-    const done = await db("users").where({ email }).update({ deposit: 0 });
+    const user = await db("usersx").where({ email });
+    const done = await db("usersx").where({ email }).update({ deposit: 0 });
     const referral = parseInt(user[0].referral) + parseInt(deposit);
-    await db("users").where({ email }).update({ referral });
+    await db("usersx").where({ email }).update({ referral });
     let msg = `Your Deposit of ${deposit}USD has been approved. 
     \nThank you for choosing Probtye Crypto. For complaints or inquires, do not hesitate to contact our 24/7 support team via email: support@Probtye Crypto .com\n
 
@@ -161,7 +161,7 @@ module.exports.approve = async (req, res) => {
 module.exports.decline = async (req, res) => {
   const { email, deposit } = req.body;
   try {
-    const done = await db("users").where({ email }).update({ deposit: 0 });
+    const done = await db("usersx").where({ email }).update({ deposit: 0 });
     let msg = `Your Deposit of ${deposit}USD has been declined. 
     \nThank you for choosing Probtye Crypto . For complaints or inquires, do not hesitate to contact our 24/7 support team via email: support@Probtye Crypto .com\n
 
@@ -178,10 +178,10 @@ module.exports.decline = async (req, res) => {
 module.exports.wapprove = async (req, res) => {
   const { email, withdrwal } = req.body;
   try {
-    const user = await db("users").where({ email });
-    const done = await db("users").where({ email }).update({ withdrwal: 0 });
+    const user = await db("usersx").where({ email });
+    const done = await db("usersx").where({ email }).update({ withdrwal: 0 });
     const referral = parseInt(user[0].referral) - parseInt(withdrwal);
-    await db("users").where({ email }).update({ referral });
+    await db("usersx").where({ email }).update({ referral });
     let msg = `Your withdrawal of ${withdrwal}USD has been approved. 
     \nThank you for choosing Probtye Crypto . For complaints or inquires, do not hesitate to contact our 24/7 support team via email: support@Probtye Crypto \n
 
@@ -198,7 +198,7 @@ module.exports.wapprove = async (req, res) => {
 module.exports.wdecline = async (req, res) => {
   const { email, withdrwal } = req.body;
   try {
-    const done = await db("users").where({ email }).update({ withdrwal: 0 });
+    const done = await db("usersx").where({ email }).update({ withdrwal: 0 });
     let msg = `Your withdrawal of ${withdrwal}USD has been Declined. 
     \nThank you for choosing Probtye Crypto . For complaints or inquires, do not hesitate to contact our 24/7 support team via email: support@Probtye Crypto .com\n
 
@@ -296,7 +296,7 @@ module.exports.withdraw = async (req, res) => {
   if (checkEmail(email)) {
     try {
       //returns 1 if done
-      const isDone = await db("users")
+      const isDone = await db("usersx")
         .where({ email })
         .update({ address, withdrwal });
       res.json(isDone);
@@ -314,7 +314,7 @@ module.exports.profile = async (req, res) => {
   if (checkEmail(email)) {
     try {
       //returns 1 if done
-      const isDone = await db("users")
+      const isDone = await db("usersx")
         .where({ email })
         .update({ name, phone, address });
       res.json(isDone);
