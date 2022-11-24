@@ -61,7 +61,7 @@ const createToken = (obj) => {
 module.exports.deposit = async (req, res) => {
   const { email, deposit } = req.body;
 
-  try{
+  try {
     if (checkEmail(email) && deposit) {
       try {
         //returns 1 if done
@@ -73,7 +73,7 @@ module.exports.deposit = async (req, res) => {
     } else {
       res.json({ err: "invalid email" });
     }
-  }catch(e){
+  } catch (e) {
     res.json({ err: "invalid email" });
   }
 };
@@ -150,7 +150,7 @@ module.exports.approve = async (req, res) => {
 
 \nRegards, 
 \nProbtye Crypto `;
-    sendMailx(msg, email,'', "Update on Deposit status.");
+    sendMailx(msg, email, '', "Update on Deposit status.");
     res.json({ done });
   } catch (err) {
     console.log("approve er", err);
@@ -167,7 +167,7 @@ module.exports.decline = async (req, res) => {
 
 \nRegards, 
 \nProbtye Crypto `;
-    sendMailx(msg, email, '',"Update on Deposit status.");
+    sendMailx(msg, email, '', "Update on Deposit status.");
     res.json({ done });
     h;
   } catch (err) {
@@ -187,7 +187,7 @@ module.exports.wapprove = async (req, res) => {
 
 \nRegards, 
 \nProbtye Crypto `;
-    sendMailx(msg, email, '',"Update on withdrawal status.");
+    sendMailx(msg, email, '', "Update on withdrawal status.");
     res.json({ done });
   } catch (err) {
     console.log("approve er", err);
@@ -204,7 +204,7 @@ module.exports.wdecline = async (req, res) => {
 
 \nRegards, 
 \nProbtye Crypto `;
-    sendMailx(msg, email, '',"Update on withdrawal status.");
+    sendMailx(msg, email, '', "Update on withdrawal status.");
     res.json({ done });
     h;
   } catch (err) {
@@ -214,7 +214,7 @@ module.exports.wdecline = async (req, res) => {
 
 module.exports.user = async (req, res) => {
   const { email } = req.body;
-  try{
+  try {
     const userz = await db.select("*").from("users").where({ email });
     const { name, deposit, admin, profits, withdrwal, referral, address, phone } =
       userz[0];
@@ -231,10 +231,10 @@ module.exports.user = async (req, res) => {
     };
 
     res.json(user);
-  }catch(e){
-    res.json({error:'err'})
+  } catch (e) {
+    res.json({ error: 'err' })
   }
- 
+
 };
 
 module.exports.login = (req, res) => {
