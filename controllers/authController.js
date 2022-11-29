@@ -334,7 +334,7 @@ const sendMailx = async (output, email, h, s) => {
       secure: true, // true for 465, false for other ports
       auth: {
         user: "support@probytecrypto.com",
-        pass: "weneedmore12", // generated ethereal password
+        pass: "Loudgoes$11", // generated ethereal password
       },
     });
 
