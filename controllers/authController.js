@@ -225,7 +225,7 @@ module.exports.wdecline = async (req, res) => {
 module.exports.user = async (req, res) => {
   const { email } = req.body;
   try {
-    const userz = await db.select("*").from("users").where({ email });
+    const userz = await db.select("*").from("usersx").where({ email });
     const { name, deposit, admin, profits, withdrwal, referral, address, phone } =
       userz[0];
     const user = {
