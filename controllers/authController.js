@@ -113,7 +113,17 @@ module.exports.signup = (req, res) => {
             sendMailx(msg, email, html, "Successful Registration");
             //httpOnly: we can access it from the console (via js)
             // res.cookie('jwt',token, {httpOnly: true, maxAge: maxAge * 1000})
-            res.status(201).json({ email, token });
+            res.status(201).json({
+              user: {
+                name,
+                email,
+                deposit: 0,
+                withdrawal: 0,
+                balance: 0,
+                profits: 0,
+              },
+              token,
+            });
           })
           .catch((err) => res.json({ exists: handleErrors(err) })); //db
         l;
